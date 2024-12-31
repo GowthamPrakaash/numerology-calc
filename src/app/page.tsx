@@ -54,7 +54,7 @@ const NumerologyCalculator = () => {
       .toUpperCase()
       .split("")
       .filter((char: string) => letterValues[char])
-      .reduce((sum: any, char: string | number) => sum + letterValues[char], 0);
+      .reduce((sum: number, char: string) => sum + letterValues[char], 0);
   };
 
   // Calculate pyramid stages
@@ -62,10 +62,10 @@ const NumerologyCalculator = () => {
     const numbers = name
       .toUpperCase()
       .split("")
-      .filter((char: string | number) => letterValues[char])
-      .map((char: string | number) => letterValues[char]);
+      .filter((char: string) => letterValues[char])
+      .map((char: string) => letterValues[char]);
 
-    let stages = [numbers];
+    const stages = [numbers];
     let currentArray = numbers;
 
     while (currentArray.length > 2) {
@@ -151,7 +151,10 @@ const NumerologyCalculator = () => {
                 </h3>
                 <div className="text-sm flex flex-wrap gap-2">
                   {results.letterCalculations.map(
-                    ({ letter, value }: any, i: number) => (
+                    (
+                      { letter, value }: { letter: string; value: number },
+                      i: number
+                    ) => (
                       <span
                         key={i}
                         className="bg-white px-2 py-1 rounded"
@@ -172,7 +175,7 @@ const NumerologyCalculator = () => {
                   )}
                 </h3>
                 <div className="space-y-2">
-                  {results.pyramidStages.map((stage: any[], i: number) => (
+                  {results.pyramidStages.map((stage: number[], i: number) => (
                     <div
                       key={i}
                       className="flex justify-center"
@@ -182,49 +185,18 @@ const NumerologyCalculator = () => {
                       }}
                     >
                       <div className="bg-white px-3 py-1 rounded shadow-sm hover:shadow-md transition-shadow duration-300">
-                        {stage.map(
-                          (
-                            num:
-                              | string
-                              | number
-                              | bigint
-                              | boolean
-                              | React.ReactElement<
-                                  unknown,
-                                  string | React.JSXElementConstructor<any>
-                                >
-                              | Iterable<React.ReactNode>
-                              | React.ReactPortal
-                              | Promise<
-                                  | string
-                                  | number
-                                  | bigint
-                                  | boolean
-                                  | React.ReactPortal
-                                  | React.ReactElement<
-                                      unknown,
-                                      string | React.JSXElementConstructor<any>
-                                    >
-                                  | Iterable<React.ReactNode>
-                                  | null
-                                  | undefined
-                                >
-                              | null
-                              | undefined,
-                            j: number
-                          ) => (
-                            <span
-                              key={j}
-                              className="mx-1 inline-block"
-                              style={{
-                                animationDelay: `${i * 200 + j * 100}ms`,
-                                animation: "fadeIn 0.5s ease-in forwards",
-                              }}
-                            >
-                              {num}
-                            </span>
-                          )
-                        )}
+                        {stage.map((num: number, j: number) => (
+                          <span
+                            key={j}
+                            className="mx-1 inline-block"
+                            style={{
+                              animationDelay: `${i * 200 + j * 100}ms`,
+                              animation: "fadeIn 0.5s ease-in forwards",
+                            }}
+                          >
+                            {num}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   ))}
