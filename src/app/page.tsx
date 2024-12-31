@@ -122,13 +122,13 @@ const NumerologyCalculator = () => {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
-            <div className="flex gap-4">
+            <div className="flex flex-col gap-4">
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter a name..."
-                className="flex-1"
-                onKeyPress={(e) => e.key === "Enter" && handleCalculate()}
+                className="flex-1 py-4 text-lg"
+                onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
               />
               <Button
                 onClick={handleCalculate}
